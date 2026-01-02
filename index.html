@@ -5,32 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 國際機器人競賽 - 台灣官方網站 | Global Robotics Games Taiwan</title>
     <style>
-        /* 配色定義 */
+        /* 配色定義 - 紅白藍科技感 */
         :root {
-            --primary-blue: #002244; /* 科技深藍 - 台灣元素 */
-            --primary-red: #ED1C24;  /* 活力紅 - 新加坡元素 */
+            --primary-blue: #002244; /* 台灣科技藍 */
+            --primary-red: #ED1C24;  /* 新加坡活力紅 */
             --accent-blue: #0056b3;
-            --light-bg: #F8F9FA;
+            --light-bg: #F4F7F9;
             --white: #FFFFFF;
-            --text-dark: #333333;
+            --text-dark: #222222;
+            --text-gray: #555555;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", "Microsoft JhengHei", Arial, sans-serif;
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
         }
 
         body {
             background-color: var(--white);
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.8;
+            scroll-behavior: smooth;
         }
 
-        /* 導覽列 - 延用 JBC 簡潔風格 */
+        /* 導覽列 */
         nav {
-            background-color: var(--white);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
@@ -42,35 +44,33 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 800;
             color: var(--primary-blue);
+            text-decoration: none;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-        }
-
-        .nav-links li {
-            margin-left: 2rem;
+            gap: 25px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--primary-red);
         }
 
-        /* 主視覺區塊 (Hero Section) */
+        /* 主視覺區塊 */
         .hero {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #004080 100%);
-            height: 80vh;
+            height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,47 +81,49 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         }
 
         .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 700px;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 20px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
+        /* 懸浮按鈕 - 競賽資訊 */
+        .floating-info-btn {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2000;
+            background: linear-gradient(180deg, var(--primary-red) 0%, #b31217 100%);
+            color: white;
+            writing-mode: vertical-rl;
+            padding: 25px 12px;
             font-weight: bold;
-            transition: transform 0.2s;
+            letter-spacing: 3px;
+            text-decoration: none;
+            border-radius: 15px 0 0 15px;
+            box-shadow: -4px 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
         }
 
-        .btn-red {
-            background-color: var(--primary-red);
-            color: var(--white);
+        .floating-info-btn:hover {
+            padding-right: 25px;
+            background: var(--primary-blue);
         }
 
-        .btn-outline {
-            border: 2px solid var(--white);
-            color: var(--white);
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.05); }
+            100% { transform: translateY(-50%) scale(1); }
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.1);
-        }
-
-        /* 內容區塊通用樣式 */
+        /* 內容區塊 */
         section {
             padding: 80px 10%;
         }
@@ -134,129 +136,149 @@
         .section-title h2 {
             font-size: 2.2rem;
             color: var(--primary-blue);
-            position: relative;
-            padding-bottom: 15px;
         }
 
-        .section-title h2::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background: var(--primary-red);
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+        .section-title .en {
+            display: block;
+            font-size: 1rem;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            margin-top: 5px;
         }
 
-        /* 競賽項目卡片 (參考 GRG 樣式) */
-        .grid-container {
+        /* 競賽重點區塊 - 仿簡章設計 */
+        .rules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .card {
-            background: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--primary-blue);
+        .rule-card {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary-blue);
+        }
+
+        .rule-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .rule-card ul {
+            list-style: none;
+        }
+
+        .rule-card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .rule-card ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+
+        /* 下載按鈕樣式 */
+        .btn-download {
+            display: inline-block;
+            background: var(--primary-red);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
             transition: 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-top-color: var(--primary-red);
+        .btn-download:hover {
+            background: var(--primary-blue);
+            transform: scale(1.05);
         }
 
-        .card-content {
-            padding: 25px;
-        }
-
-        .card-content h3 {
-            margin-bottom: 10px;
-            color: var(--primary-blue);
-        }
-
-        /* 頁尾 */
         footer {
-            background-color: #1a1a1a;
-            color: var(--white);
-            padding: 50px 10% 20px;
+            background: #111;
+            color: #aaa;
+            padding: 40px 10%;
             text-align: center;
-        }
-
-        .footer-info {
-            margin-bottom: 30px;
-            opacity: 0.7;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
+    <a href="#rules-summary" class="floating-info-btn">競賽資訊 INFO</a>
+
     <nav>
-        <div class="logo">GLOBAL ROBOTICS GAMES <span style="color:var(--primary-red)">TAIWAN</span></div>
+        <a href="#" class="logo">GRG TAIWAN <span style="color:var(--primary-red)">2026</span></a>
         <ul class="nav-links">
-            <li><a href="#about">關於比賽 About</a></li>
-            <li><a href="#games">競賽項目 Games</a></li>
-            <li><a href="#register">報名資訊 Register</a></li>
-            <li><a href="#news">最新消息 News</a></li>
+            <li><a href="#hero">首頁</a></li>
+            <li><a href="#rules-summary">競賽重點</a></li>
+            <li><a href="#about-quack">教育理念</a></li>
         </ul>
     </nav>
 
-    <header class="hero">
+    <header id="hero" class="hero">
         <h1>2026 國際機器人遊戲大賽</h1>
-        <p>探索科技無限可能，連結全球菁英人才。與新加坡同步，展現台灣機器人實力的國際舞台。</p>
-        <div class="btn-group">
-            <a href="#register" class="btn btn-red">立即報名參與</a>
-            <a href="#about" class="btn btn-outline">了解賽事詳情</a>
-        </div>
+        <p>Global Robotics Games | 台灣賽區</p>
+        <p style="font-size: 1.1rem; opacity: 0.8;">連結新加坡，打造台灣學子與國際接軌的頂尖科技舞台</p>
     </header>
 
-    <section id="about">
+    <section id="rules-summary">
         <div class="section-title">
-            <h2>關於賽事 <span style="font-size: 1.2rem; color: #888;">About the Games</span></h2>
+            <h2>競賽規則重點摘要</h2>
+            <span class="en">Rules & Regulations Summary</span>
         </div>
-        <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-            <p>Global Robotics Games 是一個旨在激發青年學生對 STEM 領域興趣的國際平台。2026 台灣賽區將延續新加坡主辦方的精神，融合創意、策略與技術，邀請全台學子一同挑戰自我。</p>
-        </div>
-    </section>
 
-    <section id="games" style="background-color: var(--light-bg);">
-        <div class="section-title">
-            <h2>競賽挑戰 <span style="font-size: 1.2rem; color: #888;">Challenges</span></h2>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <h3>🛠 器材與硬體</h3>
+                <ul>
+                    <li><strong>核心主機：</strong> LEGO SPIKE / Mindstorms 系列</li>
+                    <li><strong>馬達限制：</strong> 每台機器人最多使用 4 個馬達</li>
+                    <li><strong>感測器：</strong> 每台機器人最多使用 4 個感測器</li>
+                    <li><strong>尺寸限制：</strong> 啟動前需符合 25x25x25 cm 規範</li>
+                </ul>
+            </div>
+
+            <div class="rule-card">
+                <h3>🏆 任務與評分</h3>
+                <ul>
+                    <li><strong>時間限制：</strong> 每場任務挑戰時間為 120 秒</li>
+                    <li><strong>自動化：</strong> 競賽全程必須使用自動化程式控制</li>
+                    <li><strong>得分邏輯：</strong> 包含任務分、時間獎勵分與結構創意分</li>
+                    <li><strong>挑戰類別：</strong> 依年齡分為 Primary / Secondary / Senior</li>
+                </ul>
+            </div>
+
+            <div class="rule-card" id="about-quack">
+                <h3>🧠 QUACK 教學理念</h3>
+                <ul>
+                    <li><strong>Question：</strong> 勇於對現狀提出問題</li>
+                    <li><strong>Understand：</strong> 深度理解技術原理</li>
+                    <li><strong>Apply：</strong> 實際應用於機器人模型</li>
+                    <li><strong>Critique：</strong> 不斷評論與優化程式</li>
+                    <li><strong>Know：</strong> 內化為真正的專業知識</li>
+                </ul>
+            </div>
         </div>
-        <div class="grid-container">
-            <div class="card">
-                <div class="card-content">
-                    <h3>國小組 Primary</h3>
-                    <p>針對初學者設計，著重於邏輯思考與基礎組裝，透過趣味任務學習程式思維。</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-content">
-                    <h3>國中組 Secondary</h3>
-                    <p>強化感測器應用與進階演算法，考驗團隊合作與解決複雜問題的能力。</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-content">
-                    <h3>高中組 Senior</h3>
-                    <p>最高等級的對抗，涉及精準控制與高速反應，為未來的工程師之路做準備。</p>
-                </div>
-            </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <p style="margin-bottom: 15px; color: var(--text-gray);">更詳細的內容請參考官方完整簡章（PDF 版本）</p>
+            <a href="docs/2026_GRG_Taiwan_Rules.pdf" class="btn-download" download>下載競賽規則簡章 (PDF)</a>
         </div>
     </section>
 
     <footer>
-        <div class="footer-info">
-            <p>© 2026 Global Robotics Games Taiwan 台灣籌備委員會</p>
-            <p>主辦單位：新加坡官方授權團隊 | 承辦單位：台灣 JBC 比賽委員會</p>
-        </div>
-        <div style="font-size: 0.8rem; opacity: 0.5;">
-            官方配色：Red (#ED1C24) | Blue (#002244) | White (#FFFFFF)
-        </div>
+        <p>© 2026 Global Robotics Games Taiwan | 台灣 JBC 競賽委員會 承辦</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">參考來源：Duck Learning Singapore & Global Robotics Games Official</p>
     </footer>
 
 </body>
